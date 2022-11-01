@@ -1,19 +1,33 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { XhrFactory } from "@angular/common";
+import { provideHttpClient } from "@angular/common/http";
+import { createEnvironmentInjector, ɵsetCurrentInjector } from "@angular/core";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import "./index.css";
+
+// Create injector and provide http client
+const injector = createEnvironmentInjector(
+	[
+		provideHttpClient(),
+		{
+			provide: XhrFactory,
+			useFactory: () => ({
+				build: () => new XMLHttpRequest(),
+			}),
+		},
+	],
+	null as any
+);
+
+// Set injector so `inject` function can work
+ɵsetCurrentInjector(injector);
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+	document.getElementById("root") as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+	<React.StrictMode>
+		<App />
+	</React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

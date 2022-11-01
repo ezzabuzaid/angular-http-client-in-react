@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { HttpClient } from "@angular/common/http";
+import { inject } from "@angular/core";
+import { useObservable, useObservableState } from "observable-hooks";
+import "./App.css";
+
+interface Todo {
+	id: number;
+	title: string;
+}
+
+const getTodos = () => {
+	return inject(HttpClient).get<Todo[]>(
+		"https://jsonplaceholder.typicode.com/todos/"
+	);
+};
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const todos$ = useObservable(() => getTodos());
+	const todos = useObservableState(todos$) ?? [];
+
+	return (
+		<>
+			{todos.map((todo) => (
+				<li>{todo.title}</li>
+			))}
+		</>
+	);
 }
 
 export default App;
