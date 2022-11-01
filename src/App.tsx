@@ -1,7 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { inject } from "@angular/core";
 import { useObservable, useObservableState } from "observable-hooks";
-import "./App.css";
 
 interface Todo {
 	id: number;

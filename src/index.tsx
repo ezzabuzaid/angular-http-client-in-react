@@ -4,12 +4,12 @@ import { createEnvironmentInjector, ɵsetCurrentInjector } from "@angular/core";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import "./index.css";
 
 // Create injector and provide http client
 const injector = createEnvironmentInjector(
 	[
 		provideHttpClient(),
+		// or importProvidersFrom(HttpClientModule),
 		{
 			provide: XhrFactory,
 			useFactory: () => ({
