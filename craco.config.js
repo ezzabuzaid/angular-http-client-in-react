@@ -13,10 +13,10 @@ module.exports = async function () {
 		},
 		webpack: {
 			plugins: [
-				new BundleAnalyzerPlugin({
-					analyzerMode: "server",
-					defaultSizes: "gzip",
-				}),
+				// new BundleAnalyzerPlugin({
+				// 	analyzerMode: "server",
+				// 	defaultSizes: "gzip",
+				// }),
 			],
 		},
 	};
