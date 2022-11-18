@@ -3,7 +3,5 @@ import { inject } from "@angular/core";
 import { Todo } from "./todo.repo";
 
 export const getTodos = () => {
-	return inject(HttpClient).get<Todo[]>(
-		"https://jsonplaceholder.typicode.com/todos/"
-	);
+	return inject(HttpClient).get<Todo[]>("/todos/");
 };
